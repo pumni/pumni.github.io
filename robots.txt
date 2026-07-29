@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pumni.github.io/Sky-Auto-Player/sitemap-index.xml
+Sitemap: https://pumni.github.io/Sky-Player/sitemap.xml
