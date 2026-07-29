@@ -75,9 +75,22 @@ destination, and one unknown path. It retries at most six times with a
 ## Deployment
 
 `.github/workflows/pages.yml` runs generation, local validation, and the
-stale-generated-output check on relevant pushes to `main` or on manual
-dispatch. It deploys the `public/` directory with the official GitHub Pages
-actions.
+stale-generated-output check on relevant pull requests and pushes to `main`.
+Pull requests stop after artifact validation; pushes and manual dispatches
+deploy the `public/` directory with the official GitHub Pages actions, then
+run a separate bounded live verification job.
+
+In repository settings, GitHub Pages must use:
+
+```text
+Settings → Pages → Build and deployment → Source: GitHub Actions
+```
+
+Do not use `Deploy from a branch` with `main / root`; that bypasses the
+`public/` artifact and leaves the legacy URLs unavailable. After changing the
+source, confirm the `Deploy legacy Pages bridge` workflow has successful
+`Generate and validate Pages artifact`, `Deploy Pages artifact`, and `Verify
+live Pages bridge` jobs.
 
 This repository intentionally does not add Playwright: it would add a browser
 runtime and dependency maintenance for six static redirect pages. The local
